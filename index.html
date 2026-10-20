@@ -224,6 +224,23 @@ body.booting{overflow:hidden}
     </article>
 
     <article class="card">
+      <div class="meta"><span>2025–2026</span><span>C++ · DirectX 12 · HLSL</span></div>
+      <h3>DirectX 12 Framework</h3>
+      <div class="role" data-i18n="p7_role"></div>
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p7_task"></dd>
+        <dt>Deferred Rendering</dt><dd data-i18n="p7_def"></dd>
+        <dt>Shadows & Tessellation</dt><dd data-i18n="p7_shd"></dd>
+        <dt>Post-process</dt><dd data-i18n="p7_pps"></dd>
+        <dt>Terrain</dt><dd data-i18n="p7_ter"></dd>
+        <dt>Engine Base</dt><dd data-i18n="p7_base"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p7_res"></dd>
+      </dl>
+      <div class="tags"><span>C++</span><span>DirectX 12</span><span>HLSL</span><span>PBR</span><span>IBL</span><span>Deferred</span><span>Compute</span><span>Tessellation</span></div>
+      <div class="links"><a href="https://github.com/Stepan-Malinovskii/CG" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card">
       <div class="meta"><span>2026</span><span>Unity · C# · Game Jam</span></div>
       <h3>The Red Hot Chili Pepper</h3>
       <div class="role" data-i18n="p5_role"></div>
@@ -264,7 +281,7 @@ body.booting{overflow:hidden}
 <section id="skills">
   <h2 data-i18n="h_skills"></h2>
   <div class="skills">
-    <div class="skill"><h4>ENGINES</h4><ul><li>Unity (C#)</li><li>Unreal Engine 5 (C++, Blueprint)</li><li>Custom C++ engine (SFML, Emscripten / WebAssembly)</li><li>DirectX 12</li></ul></div>
+    <div class="skill"><h4>ENGINES</h4><ul><li>Unity (C#)</li><li>Unreal Engine 5 (C++, Blueprint)</li><li>Custom C++ engine (SFML, Emscripten / WebAssembly)</li><li>DirectX 12 (own renderer, in progress)</li></ul></div>
     <div class="skill"><h4>GAMEPLAY</h4><ul><li>Ability systems: triggers, targeting, effects</li><li>Behavior Trees and state machines</li><li>AI: A* pathfinding, BSP and procedural level generation</li><li>Save systems, Object Pool, event bus</li><li>Data-driven design: ScriptableObject, DataAsset</li><li>Gameplay UI: windows, 3D book, animation system on DOTween</li></ul></div>
     <div class="skill"><h4>NETWORK</h4><ul><li>Netcode for GameObjects, Photon, Mirror</li><li>Client-Side Prediction, Reconciliation</li><li>Ping compensation</li><li>Unity Gaming Services: Relay, Lobby, Authentication, Friends, Cloud Save, Player Management</li></ul></div>
     <div class="skill"><h4>GRAPHICS</h4><ul><li>HLSL: outline, cel-shading, hatching, post-process</li><li>Custom raycasting engine (C++)</li><li>Substance procedural textures in-engine</li></ul></div>
@@ -364,6 +381,14 @@ p6_maze:"Процедурный лабиринт поверх готового �
 p6_bake:"Офис «запекается» в сетку (редакторский BP_GridBaker, карта клеток 0/1, JSON), по ней считаются правила постановки препятствий: какие клетки вокруг должны быть стенами.",
 p6_loop:"Заказ на компьютере с магазином и вики, закупка деталей, стойки, рабочий стол и ремонт на время, деньги и сохранения, информация о дне.",
 p6_world:"Атмосфера офиса: фоновый шум, двери со звуками, сирена, пост-обработка, покачивание камеры. Динамический день: утро, вечер и ночь. Шесть видов препятствий (книги, кофе, швабра, растение, стеллаж, кулер) и система интерактивных объектов.",
+p7_role:"Graphics Programmer · Student project, in progress",
+p7_task:"Собственный рендерер на DirectX 12, который со временем станет моим движком. Начался как учебные лабораторные, теперь развивается как отдельный проект.",
+p7_def:"Отложенный рендеринг: G-buffer и проход освещения. PBR с image-based lighting (диффузная и отражённая карты окружения, BRDF LUT), нормаль- и альфа-карты.",
+p7_shd:"Карты теней и тесселяция (hull и domain шейдеры) для displacement mapping.",
+p7_pps:"Цепочка пост-обработки: тон-маппинг (Reinhard, ACES), outline, cel-shading, наложение текстур.",
+p7_ter:"Ландшафт по карте высот с послойными текстурами и рисованием по нему: кисть и выбор точки считаются на GPU в compute-шейдерах.",
+p7_base:"Кадровые ресурсы, root signature под каждый проход, инстансинг, собственный парсер OBJ с материалами, загрузка DDS. Базовые классы окна и утилит взяты из фреймворка книги Фрэнка Луны, всё остальное моё.",
+p7_res:"~4 700 строк C++ и ~1 400 строк HLSL, 46 коммитов (октябрь 2025 – октябрь 2026). В разработке.",
 e1_t:"Full-Cycle Unity Developer · Crazy Barbarian Games",e1_d:"Работа по договору. Полный цикл разработки карточного roguelike: архитектура на Zenject, системы боя, способностей, карты, магазина и событий, инструменты для дизайнеров, анимации и UI.",
 e2_t:"Unity Developer, Network · Crazy Barbarian Games",e2_d:"Работа по договору. Сетевая часть мультиплеерной игры SUMO TATAMI: Client-Side Prediction, Reconciliation, Ping Compensation, тестирование и оптимизация.",
 e3_t:"Командные проекты и геймджемы",e3_d:"3+ джема, команды 3–6 человек, TeamLead студенческой команды (Избушка Зелейника, Игропром Онлайн 2026: Топ-20 «Лучшая 3D-графика»), 5+ прототипов. Цикл: идея → прототип → билд.",
@@ -433,6 +458,14 @@ p6_maze:"A procedural maze laid on top of a finished office rather than a separa
 p6_bake:"The office is baked into a grid (an editor-side BP_GridBaker, a 0/1 cell map stored as JSON), which drives the placement rules: which neighboring cells must be walls.",
 p6_loop:"An order on a computer with a shop and a wiki, buying parts, racks, a work table and repairs against the clock, money and saves, per-day info.",
 p6_world:"Office atmosphere: background noise, doors with sounds, a siren, post-processing, camera shake. A dynamic day: morning, evening and night. Six kinds of obstacles (books, coffee, mop, plant, shelf, water cooler) and an interactable-object system.",
+p7_role:"Graphics Programmer · Student project, in progress",
+p7_task:"My own DirectX 12 renderer that will grow into my engine. It started as coursework labs and is now developing as a separate project.",
+p7_def:"Deferred rendering: a G-buffer and a lighting pass. PBR with image-based lighting (diffuse and specular environment maps, a BRDF LUT), normal and alpha maps.",
+p7_shd:"Shadow maps and tessellation (hull and domain shaders) for displacement mapping.",
+p7_pps:"A post-process chain: tone mapping (Reinhard, ACES), outline, cel-shading, texture overlay.",
+p7_ter:"Heightmap terrain with layered textures and painting on it: the brush and picking run on the GPU in compute shaders.",
+p7_base:"Frame resources, a root signature per pass, instancing, a custom OBJ parser with materials, DDS loading. The window and utility base classes come from Frank Luna's book framework, everything else is mine.",
+p7_res:"~4,700 lines of C++ and ~1,400 lines of HLSL, 46 commits (October 2025 to October 2026). In development.",
 e1_t:"Full-Cycle Unity Developer · Crazy Barbarian Games",e1_d:"Contract work. Full-cycle development of a card roguelike: Zenject architecture, battle, ability, map, shop and event systems, designer tooling, animation and UI.",
 e2_t:"Unity Developer, Network · Crazy Barbarian Games",e2_d:"Contract work. The networking layer of the multiplayer game SUMO TATAMI: Client-Side Prediction, Reconciliation, Ping Compensation, testing and optimization.",
 e3_t:"Team projects & game jams",e3_d:"3+ game jams, teams of 3–6, Team Lead of a student team (The Herbalist's Hut, Igroprom Online 2026: Top 20 Best 3D Graphics), 5+ prototypes. Cycle: idea → prototype → build.",
