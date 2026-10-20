@@ -9,6 +9,7 @@
 <meta property="og:title" content="Stepan Malinovskii — Game Programmer">
 <meta property="og:description" content="Unity, Unreal Engine, C++, multiplayer, shaders. Projects, systems and contacts.">
 <meta property="og:type" content="website">
+<script data-goatcounter="https://sstepp281.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -34,7 +35,9 @@ header .wrap{display:flex;align-items:center;gap:6px;height:38px;max-width:none;
 nav{display:flex;gap:4px;font-size:13px;flex:1}
 nav a{color:#000;text-decoration:none;padding:4px 12px;box-shadow:var(--out)}
 nav a:hover{box-shadow:var(--in);color:#000}
-.lang{font:700 12px var(--ui);background:var(--face);color:#000;border:0;padding:4px 10px;cursor:pointer;box-shadow:var(--out)}
+.lang{font:700 14px var(--ui);background:#ffffe1;color:#000;border:0;padding:6px 16px;cursor:pointer;box-shadow:var(--out),0 0 0 1px #000}
+.lang-top{position:fixed;top:12px;right:12px;z-index:40;font-size:15px;padding:8px 18px;box-shadow:var(--out),0 0 0 2px #000,4px 4px 0 2px #000}
+.lang-top b{color:#000080}@media(max-width:640px){.lang-top{top:8px;right:8px;font-size:13px;padding:6px 12px}}
 .lang:active{box-shadow:var(--in)}
 #clock{font-size:12px;padding:4px 10px;box-shadow:var(--in)}
 section{padding:40px 0 4px}
@@ -108,6 +111,7 @@ body.booting{overflow:hidden}
 </style>
 </head>
 <body class="booting"><div id="boot"><div id="bl"></div><div class="skip">click / any key — skip</div></div>
+<button class="lang lang-top" id="lang2" aria-label="Language"></button>
 <header><div class="wrap">
   <span class="logo">S.MALINOVSKII</span>
   <nav>
@@ -476,10 +480,10 @@ let lang=(()=>{try{return localStorage.getItem('lang')}catch(e){}})()||(navigato
 function apply(){
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=T[lang][e.dataset.i18n]);
-  document.getElementById('lang').textContent=lang==='ru'?'EN':'RU';
+  document.getElementById('lang').textContent=lang==='ru'?'EN':'RU';document.getElementById('lang2').innerHTML=lang==='ru'?'<b>EN</b> English':'<b>RU</b> Русский';
   try{localStorage.setItem('lang',lang)}catch(e){}
 }
-document.getElementById('lang').onclick=()=>{lang=lang==='ru'?'en':'ru';apply()};
+document.getElementById('lang').onclick=document.getElementById('lang2').onclick=()=>{lang=lang==='ru'?'en':'ru';apply()};
 apply();
 const ck=()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});ck();setInterval(ck,10000);
 (function(){
@@ -591,5 +595,21 @@ boot.addEventListener('pointerdown',end);
 addEventListener('keydown',end);
 go();
 })();</script>
-</body>
+<script>
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href],.lang,.btn');
+  if(!a||!window.goatcounter||!window.goatcounter.count)return;
+  var label;
+  if(a.classList.contains('lang')){label='language'}
+  else if(a.href){
+    var h=a.getAttribute('href');
+    if(h.indexOf('mailto:')===0){label='mail '+h.slice(7)}
+    else if(/^https?:/.test(h)){var u=new URL(h);label=u.hostname.replace(/^www\./,'')+u.pathname.replace(/\/$/,'')}
+    else if(h.charAt(0)==='#'){label='nav '+h}
+  }
+  if(!label&&a.textContent){label=a.textContent.trim().slice(0,40)}
+  if(!label)return;
+  window.goatcounter.count({path:'click/'+label,title:label,event:true});
+});
+</script></body>
 </html>
