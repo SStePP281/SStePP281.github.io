@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stepan Malinovskii — Game Programmer</title>
+<meta name="description" content="Game programmer: Unity, Unreal Engine, C++, HLSL, multiplayer.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 fill=%27%23008080%27/%3E%3Crect x=%272%27 y=%272%27 width=%2712%27 height=%2712%27 fill=%27%23c0c0c0%27/%3E%3Crect x=%272%27 y=%272%27 width=%2712%27 height=%273%27 fill=%27%23000080%27/%3E%3C/svg%3E">
+<meta property="og:title" content="Stepan Malinovskii — Game Programmer">
+<meta property="og:description" content="Unity, Unreal Engine, C++, multiplayer, shaders. Projects, systems and contacts.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk:#008080; --face:#c0c0c0; --hi:#fff; --lo:#808080; --dk:#0a0a0a; --navy:#000080; --navy2:#1084d0;
+  --accent:#00ff66; --accent2:#ff3ea5; --accent3:#3ec8ff; --dim:#8089a8; --text:#d7dcf0;
+  --ui:Tahoma,"Segoe UI",Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --out:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--lo),inset 2px 2px #dfdfdf;
+  --in:inset -1px -1px var(--hi),inset 1px 1px var(--lo),inset -2px -2px #dfdfdf,inset 2px 2px var(--dk);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--desk);color:#000;font:14px/1.5 var(--ui);padding-bottom:48px}
+a{color:#0000ee}
+a:hover{color:#551a8b}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+/* taskbar */
+header{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--face);box-shadow:inset 0 1px var(--hi),inset 0 2px #dfdfdf;height:38px}
+header .wrap{display:flex;align-items:center;gap:6px;height:38px;max-width:none;padding:0 4px}
+.logo{font:700 13px var(--ui);padding:4px 12px;box-shadow:var(--out);display:flex;align-items:center;gap:6px}
+.logo::before{content:"";width:14px;height:14px;background:conic-gradient(#f25022 0 25%,#7fba00 0 50%,#00a4ef 0 75%,#ffb900 0)}
+nav{display:flex;gap:4px;font-size:13px;flex:1}
+nav a{color:#000;text-decoration:none;padding:4px 12px;box-shadow:var(--out)}
+nav a:hover{box-shadow:var(--in);color:#000}
+.lang{font:700 12px var(--ui);background:var(--face);color:#000;border:0;padding:4px 10px;cursor:pointer;box-shadow:var(--out)}
+.lang:active{box-shadow:var(--in)}
+#clock{font-size:12px;padding:4px 10px;box-shadow:var(--in)}
+section{padding:40px 0 4px}
+h2{font:700 14px var(--ui);color:#fff;background:linear-gradient(90deg,var(--navy),var(--navy2));padding:4px 8px;margin-bottom:16px;box-shadow:var(--out)}
+h2::before{content:"▣ "}
+.hero{padding-top:44px;color:#fff}
+.hero .tag{font:700 12px var(--mono);color:#ffff66;margin-bottom:10px}
+.avail{display:block;width:fit-content;max-width:100%;background:#ffffe1;color:#000;border:2px solid #000;box-shadow:4px 4px 0 #000;font:700 clamp(15px,2.6vw,20px)/1.3 var(--ui);padding:10px 18px;margin:6px 0 20px}
+.avail::before{content:"";display:inline-block;width:14px;height:14px;background:#00c000;border:2px solid #006000;margin-right:12px;vertical-align:-1px;animation:b 1.2s steps(1) infinite}
+.hero h1{font:900 clamp(24px,4vw,36px)/1.15 Arial,var(--ui);text-shadow:3px 3px 0 #000;margin-bottom:14px}
+.hero h1 span{color:#fff}
+.hero p{max-width:640px;margin-bottom:22px;text-shadow:1px 1px 0 #000}
+.cursor{display:inline-block;width:.5em;height:.9em;background:#fff;vertical-align:-3px;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.btns,.contacts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-block;padding:7px 18px;background:var(--face);color:#000;text-decoration:none;font-weight:700;box-shadow:var(--out)}
+.btn:hover{color:#000}
+.btn:active{box-shadow:var(--in)}
+.btn.soon{opacity:.6;cursor:default}.btn.soon:active{box-shadow:var(--out)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.stat{background:var(--face);padding:3px;box-shadow:var(--out);color:#000}
+.stat>*{display:block}
+.stat b{font:700 26px var(--mono);background:#000;color:var(--accent);padding:8px 12px 0;box-shadow:var(--in)}
+.stat span{font-size:12px;background:#000;color:var(--accent);padding:0 12px 8px;box-shadow:var(--in)}
+.projects{display:grid;gap:22px}
+.card,.skill{background:var(--face);padding:3px;box-shadow:var(--out);display:flex;flex-direction:column}
+.card>*:not(h3):not(.shot),.skill>*:not(h4){margin-left:12px;margin-right:12px}
+.card h3,.skill h4{order:-2;margin:0;background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;font:700 13px var(--ui);padding:3px 6px;display:flex;justify-content:space-between;margin-bottom:10px}
+.card h3::after,.skill h4::after{content:"_ □ ×";letter-spacing:5px;font-weight:700}
+.card.featured h3{background:linear-gradient(90deg,#800000,#d04040)}
+.badge{order:-1;align-self:flex-start;background:#ffffe1;border:1px solid #000;font:700 11px var(--ui);padding:2px 8px;margin-bottom:8px}
+.card .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font:12px var(--mono);color:#444;margin-bottom:4px}
+.shot{order:-1;align-self:flex-start;margin:0 12px 10px;max-width:calc(100% - 24px);height:190px;width:auto;object-fit:contain;background:#000;box-shadow:var(--in);padding:2px}
+.role{font-weight:700;color:#800000;margin-bottom:10px}
+.card dl{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;background:#fff;box-shadow:var(--in);padding:10px 12px}
+.card dt{font-weight:700;color:var(--navy)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.tags span{font:11px var(--mono);box-shadow:var(--in);background:#fff;padding:1px 7px}
+.links{margin-top:12px;margin-bottom:10px;display:flex;gap:10px}
+.links a{font-size:13px;padding:3px 12px;background:var(--face);color:#000;text-decoration:none;box-shadow:var(--out)}
+.links a:active{box-shadow:var(--in)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.skill h4{font-size:12px}
+.skill ul{background:#fff;box-shadow:var(--in);padding:8px 10px;margin-bottom:10px}
+.skill li{list-style:none;font-size:13px;padding-left:14px;position:relative}
+.skill li::before{content:"■";font-size:7px;position:absolute;left:0;top:5px;color:var(--navy)}
+.tl{background:var(--face);box-shadow:var(--out);padding:16px 16px 16px 30px;display:grid;gap:18px;border-left:0}
+.tl div{position:relative}
+.tl div::before{content:"";position:absolute;left:-19px;top:6px;width:9px;height:9px;background:var(--navy)}
+.tl b{display:block}.tl small{color:#444}
+.tl p{font-size:13px;margin-top:3px}
+footer{padding:36px 0 20px;color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
+@media(max-width:640px){nav{display:none}.card dl{grid-template-columns:1fr}}
+/* boot */
+#boot{position:fixed;inset:0;z-index:100;background:#000;color:#c0c0c0;font:13px/1.5 var(--mono);padding:24px;overflow:hidden;transition:opacity .5s}
+#boot.out{opacity:0;pointer-events:none}
+#boot .p{color:var(--accent)} #boot .h{color:var(--accent3)} #boot .skip{position:fixed;right:20px;bottom:16px;color:#808080;font-size:12px}
+#boot .cg{color:#39ff88}#boot .cc{color:#3ec8ff}#boot .cy{color:#ffe14d}#boot .cm{color:#ff5fd2}#boot .co{color:#ff9d3c}#boot .cv{color:#b48cff}#boot .cw{color:#fff}#boot .cd{color:#6b7390}#boot .h{color:#ffe14d}
+#welcome{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+.dlg{width:min(380px,92vw);background:var(--face);padding:3px;box-shadow:var(--out),4px 4px 0 rgba(0,0,0,.5);color:#000}
+.dlg .tb{background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;font:700 13px var(--ui);padding:3px 6px;display:flex;justify-content:space-between}
+.dlg.flash .tb{animation:fl .15s steps(1) 3}
+@keyframes fl{50%{background:#808080}}
+.dlg .bd{padding:22px 18px 10px;display:flex;gap:16px;align-items:center}
+.dlg .ico{width:32px;height:32px;border-radius:50%;background:#0000c0;color:#fff;font:italic 700 22px Georgia,serif;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:inset -2px -2px #000080,inset 2px 2px #6aa0ff}
+.dlg .bt{padding:10px 0 12px;display:flex;justify-content:center}
+.dlg .ok{min-width:84px;padding:5px 12px;font:700 13px var(--ui);background:var(--face);color:#000;border:0;box-shadow:var(--out),0 0 0 1px #000;cursor:pointer}
+.dlg .ok:active{box-shadow:var(--in),0 0 0 1px #000}
+.dlg .ok:focus{outline:1px dotted #000;outline-offset:-5px}
+body.booting{overflow:hidden}
+</style>
+</head>
+<body class="booting"><div id="boot"><div id="bl"></div><div class="skip">click / any key — skip</div></div>
+<header><div class="wrap">
+  <span class="logo">S.MALINOVSKII</span>
+  <nav>
+    <a href="#projects" data-i18n="nav_projects"></a>
+    <a href="#skills" data-i18n="nav_skills"></a>
+    <a href="#exp" data-i18n="nav_exp"></a>
+    <a href="#contact" data-i18n="nav_contact"></a>
+  </nav>
+  <button class="lang" id="lang">EN</button><span id="clock"></span>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+  <div class="tag" data-i18n="tag"></div>
+  <div class="avail" data-i18n="avail"></div>
+  <h1><span data-i18n="name"></span><span class="cursor"></span></h1>
+  <p data-i18n="intro"></p>
+  <div class="btns">
+    <a class="btn" href="#projects" data-i18n="btn_projects"></a>
+    <a class="btn alt" href="#contact" data-i18n="btn_contact"></a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>4+</b><span data-i18n="s1"></span></div>
+    <div class="stat"><b>15+</b><span data-i18n="s2"></span></div>
+    <div class="stat"><b>100+</b><span data-i18n="s3"></span></div>
+    <div class="stat"><b>3+</b><span data-i18n="s4"></span></div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 data-i18n="h_projects"></h2>
+  <div class="projects">
+
+    <article class="card featured">
+      <div class="meta"><span>2025–2026</span><span>Unity · C# · Zenject</span></div>
+      <div class="badge" data-i18n="badge"></div>
+      <h3>Crazy Barbarian Games — Tactical Card Roguelike</h3>
+      <div class="role" data-i18n="p3_role"></div>
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p3_task"></dd>
+        <dt>Entity FSM</dt><dd data-i18n="p3_fsm"></dd>
+        <dt>Auto-Battle</dt><dd data-i18n="p3_auto"></dd>
+        <dt>Entity Abilities</dt><dd data-i18n="p3_abil"></dd>
+        <dt>Player Abilities</dt><dd data-i18n="p3_pabil"></dd>
+        <dt>Placement & Camera</dt><dd data-i18n="p3_place"></dd>
+        <dt>Level Select Map</dt><dd data-i18n="p3_map"></dd>
+        <dt>Cards & Economy</dt><dd data-i18n="p3_eco"></dd>
+        <dt>Events & Dialogs</dt><dd data-i18n="p3_evt"></dd>
+        <dt>Animation System</dt><dd data-i18n="p3_anim"></dd>
+        <dt>Tag System</dt><dd data-i18n="p3_tag"></dd>
+        <dt>Architecture</dt><dd data-i18n="p3_arch"></dd>
+        <dt>Editor Tooling</dt><dd data-i18n="p3_tools"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p3_res"></dd>
+      </dl>
+      <div class="tags"><span>Unity</span><span>C#</span><span>Zenject</span><span>ScriptableObject</span><span>Editor tools</span><span>DOTween</span></div>
+      
+    </article>
+
+    <article class="card">
+      <div class="meta"><span>2024–2025</span><span>Unity · C# · Netcode</span></div>
+      <div class="badge" data-i18n="badge"></div>
+      <h3>SUMO TATAMI</h3>
+      <div class="role" data-i18n="p2_role"></div>
+      <img class="shot" src="img/sumo.jpg" alt="" loading="lazy">
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p2_task"></dd>
+        <dt data-i18n="l_done"></dt><dd data-i18n="p2_done"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p2_res"></dd>
+      </dl>
+      <div class="tags"><span>Unity</span><span>C#</span><span>Netcode</span><span>Client-Side Prediction</span><span>Reconciliation</span><span>Ping Compensation</span></div>
+      <div class="links"><a href="https://store.steampowered.com/app/3395290/SUMO_TATAMI/" target="_blank" rel="noopener" data-i18n="l_steam"></a></div>
+    </article>
+
+    <article class="card">
+      <div class="meta"><span>2025–2026</span><span>Unreal Engine 5 · C++ · HLSL</span></div>
+      <h3>Избушка Зелейника (The Herbalist's Hut)</h3>
+      <div class="role" data-i18n="p4_role"></div>
+      <img class="shot" src="img/izba.webp" alt="" loading="lazy">
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p4_task"></dd>
+        <dt>Interactables</dt><dd data-i18n="p4_int"></dd>
+        <dt>Game Loop</dt><dd data-i18n="p4_loop"></dd>
+        <dt>Patient Generator</dt><dd data-i18n="p4_gen"></dd>
+        <dt>Symptom Viewer</dt><dd data-i18n="p4_sym"></dd>
+        <dt>Potion Evaluation</dt><dd data-i18n="p4_pot"></dd>
+        <dt>3D Book</dt><dd data-i18n="p4_book"></dd>
+        <dt>Dialogue & Reputation</dt><dd data-i18n="p4_dlg"></dd>
+        <dt>Stylized Rendering</dt><dd data-i18n="p4_rend"></dd>
+        <dt>Assets</dt><dd data-i18n="p4_art"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p4_res"></dd>
+      </dl>
+      <div class="tags"><span>UE5</span><span>C++</span><span>Blueprint</span><span>Substance</span><span>HLSL</span><span>Post-process</span><span>DlgSystem</span></div>
+      <div class="links"><a href="https://store.steampowered.com/app/4796070/_/" target="_blank" rel="noopener" data-i18n="l_steam"></a><a href="https://vkplay.ru/play/game/izbushka-zeleynika-48496/" target="_blank" rel="noopener" data-i18n="l_vk"></a></div>
+    </article>
+
+    <article class="card">
+      <div class="meta"><span>2024–2026</span><span>C++ · SFML · Raycasting</span></div>
+      <h3>The Soldier</h3>
+      <div class="role" data-i18n="p1_role"></div>
+      <img class="shot" src="img/soldier.png" alt="" loading="lazy">
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p1_task"></dd>
+        <dt>Raycasting Renderer</dt><dd data-i18n="p1_rend"></dd>
+        <dt>Level Generation</dt><dd data-i18n="p1_gen"></dd>
+        <dt>Enemies & NPCs</dt><dd data-i18n="p1_ai"></dd>
+        <dt>Weapons & Progression</dt><dd data-i18n="p1_gun"></dd>
+        <dt>Quests & Dialogues</dt><dd data-i18n="p1_quest"></dd>
+        <dt>Tooling & Saves</dt><dd data-i18n="p1_tool"></dd>
+        <dt>Web Port</dt><dd data-i18n="p1_web"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p1_res"></dd>
+      </dl>
+      <div class="tags"><span>C++</span><span>SFML</span><span>Raycasting</span><span>BSP</span><span>Multithreading</span><span>Emscripten</span><span>WebAssembly</span><span>Aseprite</span></div>
+      <div class="links"><a href="https://sstepp281.itch.io/raycasting" target="_blank" rel="noopener" data-i18n="l_itch"></a><a href="https://github.com/SStePP281/TheSoldier" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card">
+      <div class="meta"><span>2026</span><span>Unity · C# · Game Jam</span></div>
+      <h3>The Red Hot Chili Pepper</h3>
+      <div class="role" data-i18n="p5_role"></div>
+      <img class="shot" src="img/rhcp.jpg" alt="" loading="lazy">
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p5_task"></dd>
+        <dt>Enemy Behavior Trees</dt><dd data-i18n="p5_bt"></dd>
+        <dt>Spawners</dt><dd data-i18n="p5_spawn"></dd>
+        <dt>Mesh Slicing</dt><dd data-i18n="p5_slice"></dd>
+        <dt>Player Controller</dt><dd data-i18n="p5_ctrl"></dd>
+        <dt>Audio</dt><dd data-i18n="p5_audio"></dd>
+        <dt>Meta</dt><dd data-i18n="p5_meta"></dd>
+        <dt data-i18n="l_res"></dt><dd data-i18n="p5_res"></dd>
+      </dl>
+      <div class="tags"><span>Unity</span><span>C#</span><span>Behavior Tree</span><span>SerializeReference</span><span>Mesh slicing</span><span>Object Pool</span><span>Zenject</span></div>
+      <div class="links"><a href="https://vanbash.itch.io/the-red-hot-chili-pepper" target="_blank" rel="noopener" data-i18n="l_itch"></a><a href="https://github.com/andreychetporov/RHCP" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+    <article class="card">
+      <div class="meta"><span>2025</span><span>Unreal Engine 5 · C++ · Blueprint</span></div>
+      <h3>The Paper Jam</h3>
+      <div class="role" data-i18n="p6_role"></div>
+      <img class="shot" src="img/jam.png" alt="" loading="lazy">
+      <dl>
+        <dt data-i18n="l_task"></dt><dd data-i18n="p6_task"></dd>
+        <dt>Maze Generator</dt><dd data-i18n="p6_maze"></dd>
+        <dt>Level Baking</dt><dd data-i18n="p6_bake"></dd>
+        <dt>Gameplay Loop</dt><dd data-i18n="p6_loop"></dd>
+        <dt>World & Atmosphere</dt><dd data-i18n="p6_world"></dd>
+      </dl>
+      <div class="tags"><span>UE5</span><span>C++</span><span>Blueprint</span><span>A*</span><span>Procedural generation</span><span>Post-process</span></div>
+      <div class="links"><a href="https://github.com/SStePP281/ThePaperJam" target="_blank" rel="noopener">GitHub</a></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="skills">
+  <h2 data-i18n="h_skills"></h2>
+  <div class="skills">
+    <div class="skill"><h4>ENGINES</h4><ul><li>Unity (C#)</li><li>Unreal Engine 5 (C++, Blueprint)</li><li>Custom C++ engine (SFML, Emscripten / WebAssembly)</li><li>DirectX 12</li></ul></div>
+    <div class="skill"><h4>GAMEPLAY</h4><ul><li>Ability systems: triggers, targeting, effects</li><li>Behavior Trees and state machines</li><li>AI: A* pathfinding, BSP and procedural level generation</li><li>Save systems, Object Pool, event bus</li><li>Data-driven design: ScriptableObject, DataAsset</li><li>Gameplay UI: windows, 3D book, animation system on DOTween</li></ul></div>
+    <div class="skill"><h4>NETWORK</h4><ul><li>Netcode for GameObjects, Photon, Mirror</li><li>Client-Side Prediction, Reconciliation</li><li>Ping compensation</li><li>Unity Gaming Services: Relay, Lobby, Authentication, Friends, Cloud Save, Player Management</li></ul></div>
+    <div class="skill"><h4>GRAPHICS</h4><ul><li>HLSL: outline, cel-shading, hatching, post-process</li><li>Custom raycasting engine (C++)</li><li>Substance procedural textures in-engine</li></ul></div>
+    <div class="skill"><h4>ARCHITECTURE</h4><ul><li>OOP, SOLID, MVC/MVVM</li><li>Zenject / VContainer</li><li>DoTween, FMOD</li></ul></div>
+    <div class="skill"><h4>TOOLING</h4><ul><li>C, C++, C#, Python, HLSL</li><li>Editor tools: Unity PropertyDrawers, SerializeReference editors, Unreal editor module</li><li>Git, GitHub, GitLab</li><li>Blender, Cinema 4D, Substance Painter / Designer, Photoshop, Aseprite</li></ul></div>
+  </div>
+</section>
+
+<section id="exp">
+  <h2 data-i18n="h_exp"></h2>
+  <div class="tl">
+    <div><b data-i18n="e1_t"></b><small>2025–2026</small><p data-i18n="e1_d"></p></div>
+    <div><b data-i18n="e2_t"></b><small>2024–2025</small><p data-i18n="e2_d"></p></div>
+    <div><b data-i18n="e3_t"></b><small>2024–2026</small><p data-i18n="e3_d"></p></div>
+    <div><b data-i18n="e4_t"></b><small>2020–2024</small><p data-i18n="e4_d"></p></div>
+  </div></section>
+</main>
+
+<footer id="contact"><div class="wrap">
+  <h2 data-i18n="h_contact"></h2>
+  <div class="contacts">
+    <a class="btn" href="mailto:s-malinovskij@list.ru">s-malinovskij@list.ru</a>
+    <a class="btn" href="mailto:step98070@gmail.com">step98070@gmail.com</a>
+    <a class="btn alt" href="https://t.me/SStePP281" target="_blank" rel="noopener">Telegram</a>
+    <a class="btn alt" href="https://github.com/SStePP281" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn alt" href="https://sstepp281.itch.io/" target="_blank" rel="noopener">itch.io</a>
+    <span class="btn alt soon" title="soon">hh.ru</span>
+  </div>  <div>© 2026 Stepan Malinovskii</div>
+</div></footer>
+
+<script>
+const T={
+ru:{
+nav_projects:"Проекты",nav_skills:"Навыки",nav_exp:"Опыт",nav_contact:"Контакты",
+tag:"GAME PROGRAMMER",avail:"Ищу удалённую работу · готов 40–50 часов в неделю",name:"Степан Малиновский",
+intro:"Пишу геймплейные системы, сетевой код и шейдеры на Unity и Unreal Engine. Довожу проекты от идеи до билда: от Behavior Tree и сетевой предикции до своего raycasting-движка на C++.",
+btn_projects:"Смотреть проекты",btn_contact:"Связаться",
+s1:"лет разработки на Unity",s2:"игровых механик реализовано",s3:"скачиваний на itch.io",s4:"джема и командных проекта",
+h_projects:"ПРОЕКТЫ",h_skills:"НАВЫКИ",h_exp:"ОПЫТ",h_contact:"КОНТАКТЫ",
+badge:"★ КОММЕРЧЕСКИЙ ПРОЕКТ · 1 ГОД",l_task:"Задача",l_arch:"Архитектура",l_battle:"Бой",l_abil:"Способности",l_meta:"Мета-игра",l_tools:"Инструменты",l_done:"Что сделал",l_hard:"Сложность",l_res:"Результат",
+l_code:"код",l_video:"видео",l_steam:"Steam",l_vk:"VK Play",l_itch:"itch.io",
+p1_role:"Solo Developer · Engine & Gameplay Programmer",
+p1_task:"Doom-подобный шутер на C++, написанный с нуля, без готового движка. С сюжетом (постапокалиптический СССР 1970-х, бывший спецназовец против инопланетных захватчиков), диалогами и случайно генерируемыми уровнями.",
+p1_rend:"Raycasting-движок написан вручную: стены, пол, спрайты-билборды, наклон камеры и прыжки, буфер глубины. Отрисовка распараллелена на собственном пуле потоков (ThreadPool).",
+p1_gen:"Процедурная генерация уровней: разбиение пространства на дерево (BSP, класс Leaf), комнаты и проходы.",
+p1_ai:"Иерархия сущностей: враги с состояниями (Stay, Run, Attack, Spawn, Dead), конвертеры, боссы и 6 видов NPC (торговец, путешественник, механик, портал, квестодатель, меняла). Собственная коллизия на blockmap.",
+p1_gun:"Несколько видов оружия, у каждого свои анимации. Две системы прокачки: много обвесов (прицелы, магазины, надульники, приклады) и ковка трёх характеристик: урон, разброс, магазин. Живая экономика: у торговцев меняются цены, там можно купить лечение, броню, патроны и увеличить запас здоровья и выносливости.",
+p1_quest:"Квесты (убийства, деньги, детали) и диалоги, загружаемые из текстовых файлов. Потокобезопасная шина событий (EventSystem) связывает системы.",
+p1_tool:"Встроенный редактор карт, бинарные сохранения состояния игры, видео-вставки через sfeMovie и FFmpeg.",
+p1_res:"~500 просмотров и ~60 скачиваний на itch.io.",
+p1_web:"Версия для браузера (HTML5 / WebAssembly) собирается из тех же исходников через Emscripten: тонкая прослойка с API SFML 2 поверх SDL2 и WebGL2, прогресс хранится в IndexedDB. Готовится публикация в Яндекс Играх.",
+p2_role:"Unity Developer · Commercial · 1 year · Crazy Barbarian Games",
+p2_task:"Мультиплеерный party platformer про неуклюжих сумоистов: гонки, дуэли, боулинг, гольф, ракетные прыжки. Выход в Steam в 4 квартале 2026.",
+p2_done:"Внедрил Client-Side Prediction, Reconciliation и Ping Compensation. Тестировал и оптимизировал сетевую часть: разобрал архитектуру Server-Client, нашёл узкие места.",
+p2_res:"Снижено влияние задержки на геймплей. Страница в Steam открыта, игра в разработке.",
+p3_role:"Full-Cycle Unity Developer · Commercial · 1 year · NDA project",
+p3_task:"Карточный тактический roguelike: карта акта, бои с расстановкой юнитов, магазин, события, диалоги. Нужна была расширяемая основа, чтобы геймдизайнеры добавляли контент без программиста.",
+p3_fsm:"Конечный автомат сущности: Idle, Move, Attack, Ability, Death, подсостояния и переходы между ними, фабрика состояний.",
+p3_auto:"Автоматический бой: юниты сами выбирают цель, двигаются, атакуют и применяют способности, в бою игрок только расставляет и кастует.",
+p3_abil:"Способности юнитов на данных: триггер → таргетинг → эффекты, собираются в инспекторе (ScriptableObject + SerializeReference). 10 триггеров, 8 типов таргетинга, 11 эффектов (урон, лечение, призыв, нокбэк, притягивание, зоны), 7 статусов (DoT, Silence, Root, Taunt…), кулдауны.",
+p3_pabil:"Игрок кастует заклинания-зоны на поле боя. Построена на той же системе способностей, что и у юнитов: один код, два источника.",
+p3_place:"Расстановка юнитов по сетке в зоне боя, конвертация карты в сетку, коллизии и триггеры сущностей, камера с зумом, траектории атак, мини-HUD.",
+p3_map:"Карта выбора уровня как граф: редактор вершин и перемещение игрока. Типы вершин: боевые (обычный, особый, босс), торговые (магазин), мастерские (арсенал), диалоговые (события), стартовая.",
+p3_eco:"Магазин, золото, реролл, арсенал, коллекция, замена карт после награды. Апгрейды карт (3 уровня) и единый ICardController для юнитов и способностей игрока.",
+p3_evt:"События с условиями, выборами, исходами и наградами. Диалоги с озвучкой, эмоциями персонажа и сменой эмоций с анимацией.",
+p3_anim:"Собственная система анимаций поверх DOTween: анимация это ScriptableObject с деревом компонентов, которое собирается в инспекторе без кода. Композиция (Append, Join, Loop, Delay), движение, поворот, масштаб, прозрачность, свойства шейдера, SetActive, sort order, callback. Одна анимация работает и в UI (RectTransform), и в мире, ссылки на объекты подставляются через blackboard. Используется в окнах, картах, диалогах, VFX способностей.",
+p3_tag:"Универсальные теги (редкость, тип юнита, способность, эмоции диалога) с фильтрами для таргетинга и поиска.",
+p3_arch:"Zenject с первого коммита: инсталлеры по сценам, фабрики, свои реактивные примитивы (ReactiveVariable, ReactiveQueue, ReactiveDictionary), загрузка сцен с переходами, пулы звука и частиц.",
+p3_tools:"~20 кастомных редакторов и PropertyDrawer: дизайнеры собирают способности, события, награды и теги без кода.",
+p3_res:"Команда из 6 человек. Мои: 129 из 178 коммитов (без merge) и ~97% добавленных строк C# в игровых скриптах. В проекте ~18 000 строк и 340+ скриптов; способности, события и награды собираются в инспекторе без кода.",
+p4_role:"Team Lead · Programmer · Graphics Engineer",
+p4_task:"Симулятор лекаря в тёмном фэнтези на основе славянского фольклора: осматривай жителей, вари зелья, находи демонов среди пациентов. Игра в разработке.",
+p4_int:"Система на двух интерфейсах: BPI_Interactable и BPI_Interactor, с двумя базовыми классами BBP_Grabbable (захват и перенос) и BBP_BaseStationary (стационарные объекты). Управление на Enhanced Input (ЛКМ, ПКМ).",
+p4_loop:"Подсистема игрового цикла: дни и состояния игры, метрики, заражённость, репутация фракций, сохранение и загрузка.",
+p4_gen:"Генерация пациентов по дням: пул симптомов по частям тела, демоны с подмешанными симптомами, проверка, что симптомы человека не совпадают с демоном, выбор гостей по весам, обучающие дни.",
+p4_sym:"Симптомы показываются на теле пациента: свои процедурные Substance-графы (пятна, вены), пул оверлеев с динамическими материалами, деформации. Сложное было во внедрении: подмена каналов, время обработки, копирование Instance графов и перенос Output в новый Instance.",
+p4_pot:"Оценка зелья по ингредиентам и их приоритетам (процент подходящих, яд, демон или человек): исход определяет вылеченного или отравленного и влияет на заражённость. Данные-ориентированная схема: 40 ингредиентов и 36 симптомов заполняются дизайнерами через DataAsset без программиста.",
+p4_book:"Интерактивная 3D-книга: конечный автомат перелистывания страниц, закладки, страницы на DataAsset и виджетах, камера, звук. Началась как 2D-виджет, но игра в основном 3D, и чтобы не выбивать игрока из потока, книгу перевели в 3D и переписали на C++.",
+p4_dlg:"Диалоговая система на DlgSystem со своим конечным автоматом окна двери, эмоции гостей, репутация и причины исходов. Контент диалогов в написании.",
+p4_art:"Часть ассетов проекта сделана мной: Cinema 4D, Substance Painter и Substance Designer.",
+p4_rend:"Единый стиль «скетчбук»: несколько вариантов Outline, 3 вида CellShader, 2 вида Hatching, 6 слоёв пост-обработки с наложением бумажных текстур и акварельных пятен. Outline и несколько шейдеров написаны на HLSL, остальное на нодах материалов. Оптимизация: каждый слой пост-обработки это отдельный полноэкранный проход (full-screen pass), и это дорого, поэтому слои объединены в 2 прохода.",
+p4_res:"Игропром Онлайн 2026 (133 участника): Топ-20 «Лучшая 3D-графика», Топ-21 «Лучший дебют». Участник ВК Лаборатории, медиана сессии в прототипе 17 минут. Плейтест в Steam в ближайший месяц. Мои: 268 из 623 коммитов (без merge), ~85% строк C++.",
+p5_role:"Game Designer · Programmer · Game Jam",
+p5_task:"Платформер-шутер, смесь Ninja Fruit и Jetpack Joyride.",
+p5_res:"Команда из 4 человек. Мои: 26 из 77 коммитов и около 78% C# в игровых скриптах (5 809 из 7 418 добавленных строк).",
+p5_bt:"Поведение врагов собирается в инспекторе без кода: ScriptableObject с деревом действий на SerializeReference. Композиты (Sequence, Parallel, Repeat, If, а также «побочное действие в цикле, пока выполняется главное»), условия (игрок в зоне), движение (бег, прыжок, автопрыжок, движение по кривой, поворот), спавн и уничтожение. Свой редактор с категориями.",
+p5_spawn:"Спавнеры врагов с триггерами (по старту, по коллайдеру), настраиваются в инспекторе.",
+p5_slice:"Разрезание врагов мышью (идея Ninja Fruit): меш режется плоскостью в рантайме, с «крышками» на срезе, куски разлетаются. Кровь: эмиттеры, менеджер и брызги на экране.",
+p5_ctrl:"Физический контроллер игрока: пружинная подвеска (hover), датчик земли, мотор прыжка, сжатие при приземлении, ввод через Input System.",
+p5_audio:"Звук через пул эмиттеров (ObjectPool) с ограничением количества одинаковых звуков.",
+p5_meta:"Монеты с магнитом, ульта, карта уровней и лобби, загрузчик сцен с затемнением, Zenject.",
+p6_role:"Solo Developer · Gameplay & Level Programmer",
+p6_task:"Абсурдный симулятор офисного техника: заказ, закупка деталей, лабиринт, ремонт на время.",
+p6_maze:"Процедурный лабиринт поверх готового офиса, а не отдельный уровень. Класс на C++ находит все допустимые места для препятствий разной формы, а затем жадно строит лабиринт на алгоритме A*: на каждом шаге из препятствий на кратчайшем пути выбирается то, что сильнее всего его удлиняет, не перекрывая путь полностью. Сложность задаёт число итераций (от 2 до 8) и количество декоративных препятствий.",
+p6_bake:"Офис «запекается» в сетку (редакторский BP_GridBaker, карта клеток 0/1, JSON), по ней считаются правила постановки препятствий: какие клетки вокруг должны быть стенами.",
+p6_loop:"Заказ на компьютере с магазином и вики, закупка деталей, стойки, рабочий стол и ремонт на время, деньги и сохранения, информация о дне.",
+p6_world:"Атмосфера офиса: фоновый шум, двери со звуками, сирена, пост-обработка, покачивание камеры. Динамический день: утро, вечер и ночь. Шесть видов препятствий (книги, кофе, швабра, растение, стеллаж, кулер) и система интерактивных объектов.",
+e1_t:"Full-Cycle Unity Developer · Crazy Barbarian Games",e1_d:"Работа по договору. Полный цикл разработки карточного roguelike: архитектура на Zenject, системы боя, способностей, карты, магазина и событий, инструменты для дизайнеров, анимации и UI.",
+e2_t:"Unity Developer, Network · Crazy Barbarian Games",e2_d:"Работа по договору. Сетевая часть мультиплеерной игры SUMO TATAMI: Client-Side Prediction, Reconciliation, Ping Compensation, тестирование и оптимизация.",
+e3_t:"Командные проекты и геймджемы",e3_d:"3+ джема, команды 3–6 человек, TeamLead студенческой команды (Избушка Зелейника, Игропром Онлайн 2026: Топ-20 «Лучшая 3D-графика»), 5+ прототипов. Цикл: идея → прототип → билд.",
+e4_t:"Соло-разработка (Indie)",e4_d:"15+ игровых механик на Unity, мультиплеер и сетевая синхронизация, оптимизация производительности.",},
+en:{
+nav_projects:"Projects",nav_skills:"Skills",nav_exp:"Experience",nav_contact:"Contact",
+tag:"GAME PROGRAMMER",avail:"Open to remote work · 40–50 hours a week",name:"Stepan Malinovskii",
+intro:"I build gameplay systems, networking code and shaders in Unity and Unreal Engine. I take projects from idea to build — from Behavior Trees and netcode prediction to a custom raycasting engine in C++.",
+btn_projects:"View projects",btn_contact:"Get in touch",
+s1:"years of Unity development",s2:"gameplay mechanics shipped",s3:"downloads on itch.io",s4:"game jams & team projects",
+h_projects:"PROJECTS",h_skills:"SKILLS",h_exp:"EXPERIENCE",h_contact:"CONTACT",
+badge:"★ COMMERCIAL PROJECT · 1 YEAR",l_task:"Goal",l_arch:"Architecture",l_battle:"Battle",l_abil:"Abilities",l_meta:"Meta-game",l_tools:"Tooling",l_done:"What I did",l_hard:"Challenge",l_res:"Result",
+l_code:"code",l_video:"video",l_steam:"Steam",l_vk:"VK Play",l_itch:"itch.io",
+p1_role:"Solo Developer · Engine & Gameplay Programmer",
+p1_task:"A Doom-style shooter written from scratch in C++, with no off-the-shelf engine. It has a story (post-apocalyptic 1970s USSR, an ex-special-forces soldier against alien invaders), dialogue and randomly generated levels.",
+p1_rend:"A hand-written raycasting engine: walls, floor, billboard sprites, camera pitch and jumping, a depth buffer. Drawing is parallelized on a custom thread pool.",
+p1_gen:"Procedural level generation: space partitioning into a tree (BSP, the Leaf class), rooms and corridors.",
+p1_ai:"An entity hierarchy: enemies with states (Stay, Run, Attack, Spawn, Dead), converters, bosses and 6 kinds of NPC (trader, traveler, mechanic, portal, quest giver, changer). Custom collision on a blockmap.",
+p1_gun:"Several weapon types, each with its own animations. Two upgrade systems: many attachments (sights, magazines, muzzle devices, stocks) and forging of three stats: damage, spread, magazine. A living economy: traders change their prices, and you can buy healing, armor, ammo and raise your max health and stamina.",
+p1_quest:"Quests (kills, money, parts) and dialogues loaded from text files. A thread-safe event bus (EventSystem) ties the systems together.",
+p1_tool:"A built-in map editor, binary save files, video cutscenes through sfeMovie and FFmpeg.",
+p1_res:"~500 views and ~60 downloads on itch.io.",
+p1_web:"A browser version (HTML5 / WebAssembly) built from the same sources through Emscripten: a thin layer exposing the SFML 2 API on top of SDL2 and WebGL2, progress stored in IndexedDB. Yandex Games publication is being prepared.",
+p2_role:"Unity Developer · Commercial · 1 year · Crazy Barbarian Games",
+p2_task:"A multiplayer party platformer about clumsy sumo wrestlers: races, duels, bowling, golf, rocket jumps. Steam release in Q4 2026.",
+p2_done:"Implemented Client-Side Prediction, Reconciliation and Ping Compensation. Tested and optimized the networking layer: analyzed the Server-Client architecture and found the bottlenecks.",
+p2_res:"Reduced the impact of latency on gameplay. Steam page is live, the game is in development.",
+p3_role:"Full-Cycle Unity Developer · Commercial · 1 year · NDA project",
+p3_task:"A tactical card roguelike: act map, battles with unit placement, shop, events, dialogue. It needed an extensible foundation so designers could add content without a programmer.",
+p3_fsm:"Entity state machine: Idle, Move, Attack, Ability, Death, substates and transitions between them, a state factory.",
+p3_auto:"Automatic combat: units pick targets, move, attack and use abilities on their own; the player only places units and casts spells.",
+p3_abil:"Data-driven unit abilities: trigger → targeting → effects, assembled in the Inspector (ScriptableObject + SerializeReference). 10 triggers, 8 targeting types, 11 effects (damage, heal, summon, knockback, pull, areas), 7 status effects (DoT, Silence, Root, Taunt…), cooldowns.",
+p3_pabil:"The player casts spell zones on the battlefield. Built on the same ability system as the units: one codebase, two sources.",
+p3_place:"Grid-based unit placement in the battle zone, map-to-grid conversion, entity collisions and triggers, zoom camera, attack trajectories, mini-HUD.",
+p3_map:"Level-select map as a graph: vertex editor and player movement. Vertex types: combat (regular, special, boss), trade (shop), workshop (arsenal), dialogue (events), start.",
+p3_eco:"Shop, gold, reroll, arsenal, collection, card replacement after rewards. Card upgrades (3 levels) and a shared ICardController for units and player abilities.",
+p3_evt:"Events with conditions, choices, outcomes and rewards. Voiced dialogues with character emotions and animated emotion changes.",
+p3_anim:"A custom animation system on top of DOTween: an animation is a ScriptableObject holding a tree of components assembled in the Inspector with no code. Composition (Append, Join, Loop, Delay), move, rotate, scale, alpha, shader properties, SetActive, sort order, callbacks. One animation works in both UI (RectTransform) and the world; object references are bound through a blackboard. Used in windows, cards, dialogues and ability VFX.",
+p3_tag:"Generic tags (rarity, unit type, ability, dialogue emotions) with filters for targeting and search.",
+p3_arch:"Zenject from the first commit: per-scene installers, factories, custom reactive primitives (ReactiveVariable, ReactiveQueue, ReactiveDictionary), scene loading with transitions, audio and particle pools.",
+p3_tools:"~20 custom editors and PropertyDrawers: designers assemble abilities, events, rewards and tags with no code.",
+p3_res:"Team of 6. Mine: 129 of 178 commits (excluding merges) and ~97% of C# lines added in the game scripts. The project has ~18,000 lines and 340+ scripts; abilities, events and rewards are assembled in the Inspector with no code.",
+p4_role:"Team Lead · Programmer · Graphics Engineer",
+p4_task:"A dark-fantasy healer simulator rooted in Slavic folklore: examine villagers, brew potions, find the demons among your patients. The game is in development.",
+p4_int:"A system built on two interfaces, BPI_Interactable and BPI_Interactor, with two base classes: BBP_Grabbable (grab and carry) and BBP_BaseStationary (fixed objects). Driven by Enhanced Input (LMB, RMB).",
+p4_loop:"A game-loop subsystem: days and game states, metrics, infection rate, faction reputation, save and load.",
+p4_gen:"Per-day patient generation: a symptom pool by body part, demons with mixed-in symptoms, a check that human symptoms never match the demon, weighted guest selection, tutorial days.",
+p4_sym:"Symptoms are shown on the patient body: my own procedural Substance graphs (spots, veins), a pool of overlays with dynamic materials, deformations. The hard part was integration: channel swapping, processing time, copying graph instances and re-pointing outputs on the new instance.",
+p4_pot:"Potion evaluation by ingredients and their priorities (match fraction, poison, demon or human): the outcome decides healed or poisoned and drives the infection rate. A data-driven setup: 40 ingredients and 36 symptoms are filled in by designers through DataAssets, no programmer needed.",
+p4_book:"An interactive 3D book: a page-flipping state machine, bookmarks, pages built on DataAssets and widgets, camera, sound. It started as a 2D widget, but the game is mostly 3D, so to keep the player in the flow the book was moved into 3D and rewritten in C++.",
+p4_dlg:"A dialogue system on DlgSystem with a custom door-window state machine, guest emotions, reputation and outcome reasons. Dialogue content is being written.",
+p4_art:"Part of the project assets are made by me: Cinema 4D, Substance Painter and Substance Designer.",
+p4_rend:"A unified sketchbook look: several Outline variants, 3 kinds of CellShader, 2 kinds of Hatching, 6 post-process layers with paper-texture and watercolor-blot overlays. The outlines and a few shaders are hand-written HLSL, the rest are material nodes. Optimization: every post-process layer is its own full-screen pass, which is expensive, so the layers were merged down to 2 passes.",
+p4_res:"Igroprom Online 2026 (133 entries): Top 20 Best 3D Graphics, Top 21 Best Debut. VK Lab participant, median prototype session of 17 minutes. Steam playtest within a month. Mine: 268 of 623 commits (excluding merges), ~85% of C++ lines.",
+p5_role:"Game Designer · Programmer · Game Jam",
+p5_task:"A platformer-shooter mixing Ninja Fruit and Jetpack Joyride.",
+p5_res:"A team of 4. Mine: 26 of 77 commits and about 78% of C# in the game scripts (5,809 of 7,418 added lines).",
+p5_bt:"Enemy behavior is assembled in the Inspector with no code: a ScriptableObject holding an action tree built on SerializeReference. Composites (Sequence, Parallel, Repeat, If, plus a side action looped while the main one runs), conditions (player in zone), movement (run, jump, auto-jump, curve movement, rotation), spawn and destroy. A custom editor with categories.",
+p5_spawn:"Enemy spawners with triggers (on start, on collider), configured in the Inspector.",
+p5_slice:"Slicing enemies with the mouse (a Ninja Fruit idea): the mesh is cut by a plane at runtime, with caps on the cut, and the pieces fly apart. Blood: emitters, a manager and on-screen splatter.",
+p5_ctrl:"A physics-based player controller: spring suspension (hover), a ground probe, a jump motor, landing squash, Input System input.",
+p5_audio:"Sound through a pool of emitters (ObjectPool) with a cap on identical sounds.",
+p5_meta:"Coins with a magnet, an ultimate, a level map and lobby, a scene loader with fades, Zenject.",
+p6_role:"Solo Developer · Gameplay & Level Programmer",
+p6_task:"An absurd office-technician simulator: take an order, buy parts, run a maze, repair gear against the clock.",
+p6_maze:"A procedural maze laid on top of a finished office rather than a separate level. A C++ class finds every legal spot for obstacles of several shapes, then builds the maze greedily on A*: at each step, of the obstacles on the shortest path it picks the one that lengthens it most without blocking it completely. Difficulty sets the number of iterations (2 to 8) and the amount of decorative obstacles.",
+p6_bake:"The office is baked into a grid (an editor-side BP_GridBaker, a 0/1 cell map stored as JSON), which drives the placement rules: which neighboring cells must be walls.",
+p6_loop:"An order on a computer with a shop and a wiki, buying parts, racks, a work table and repairs against the clock, money and saves, per-day info.",
+p6_world:"Office atmosphere: background noise, doors with sounds, a siren, post-processing, camera shake. A dynamic day: morning, evening and night. Six kinds of obstacles (books, coffee, mop, plant, shelf, water cooler) and an interactable-object system.",
+e1_t:"Full-Cycle Unity Developer · Crazy Barbarian Games",e1_d:"Contract work. Full-cycle development of a card roguelike: Zenject architecture, battle, ability, map, shop and event systems, designer tooling, animation and UI.",
+e2_t:"Unity Developer, Network · Crazy Barbarian Games",e2_d:"Contract work. The networking layer of the multiplayer game SUMO TATAMI: Client-Side Prediction, Reconciliation, Ping Compensation, testing and optimization.",
+e3_t:"Team projects & game jams",e3_d:"3+ game jams, teams of 3–6, Team Lead of a student team (The Herbalist's Hut, Igroprom Online 2026: Top 20 Best 3D Graphics), 5+ prototypes. Cycle: idea → prototype → build.",
+e4_t:"Solo development (Indie)",e4_d:"15+ gameplay mechanics in Unity, multiplayer and network sync, performance optimization."
+}};
+let lang=(()=>{try{return localStorage.getItem('lang')}catch(e){}})()||(navigator.language.startsWith('ru')?'ru':'en');
+function apply(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=T[lang][e.dataset.i18n]);
+  document.getElementById('lang').textContent=lang==='ru'?'EN':'RU';
+  try{localStorage.setItem('lang',lang)}catch(e){}
+}
+document.getElementById('lang').onclick=()=>{lang=lang==='ru'?'en':'ru';apply()};
+apply();
+const ck=()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});ck();setInterval(ck,10000);
+(function(){
+const boot=document.getElementById('boot'),bl=document.getElementById('bl');
+const P='<span class="p">ubuntu@stepan</span>:<span class="h">~</span>$ ';
+const L=[
+[P+'sudo apt update',300],
+['Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease',120],
+['Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease',120],
+['Get:3 https://packages.malinovskii.dev stable InRelease [8,120 B]',200],
+['Fetched 8,120 B in 0s (81.2 kB/s)',150],
+['Reading package lists... Done',250],
+[P+'sudo apt install stepan-portfolio',450],
+['Reading package lists... Done',150],
+['Unpacking <span class="h">unity</span> (6000.x) ...',150],
+['Unpacking <span class="h">unreal-engine</span> (5.x) ...',150],
+['Unpacking <span class="h">cpp, csharp, hlsl</span> ...',150],
+['Setting up <span class="h">netcode-multiplayer</span> ...',150],
+['Selecting previously unselected package <span class=\"h\">gameplay-systems</span>.',40],
+['Unpacking gameplay-systems (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">behavior-tree</span>.',40],
+['Unpacking behavior-tree (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">object-pool</span>.',40],
+['Unpacking object-pool (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">save-system</span>.',40],
+['Unpacking save-system (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">client-side-prediction</span>.',40],
+['Unpacking client-side-prediction (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">reconciliation</span>.',40],
+['Unpacking reconciliation (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">ping-compensation</span>.',40],
+['Unpacking ping-compensation (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">netcode-for-gameobjects</span>.',40],
+['Unpacking netcode-for-gameobjects (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">photon</span>.',40],
+['Unpacking photon (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">mirror</span>.',40],
+['Unpacking mirror (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">zenject</span>.',40],
+['Unpacking zenject (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">vcontainer</span>.',40],
+['Unpacking vcontainer (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">dotween</span>.',40],
+['Unpacking dotween (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">fmod</span>.',40],
+['Unpacking fmod (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">hlsl-shaders</span>.',40],
+['Unpacking hlsl-shaders (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">post-process</span>.',40],
+['Unpacking post-process (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">raycasting-engine</span>.',40],
+['Unpacking raycasting-engine (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">procedural-maze-gen</span>.',40],
+['Unpacking procedural-maze-gen (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">solid-mvc-mvvm</span>.',40],
+['Unpacking solid-mvc-mvvm (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">git</span>.',40],
+['Unpacking git (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">blender</span>.',40],
+['Unpacking blender (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">cinema4d</span>.',40],
+['Unpacking cinema4d (1.0.0) ...',40],
+['Selecting previously unselected package <span class=\"h\">substance-painter</span>.',40],
+['Unpacking substance-painter (1.0.0) ...',40],
+['Processing triggers for gameplay-man (1.0) ...',100],
+['Setting up <span class=\"h\">cpp-toolchain</span> (C++20) ...',80],
+['Setting up <span class=\"h\">csharp-runtime</span> (.NET) ...',80],
+['Setting up <span class=\"h\">directx12</span> ...',80],
+['PROGRESS',0],
+['<span class="p">Done.</span> Launching portfolio...',400]];
+let done=false,welcomeOpen=false;
+const snd=n=>{try{const a=new Audio(n);a.play().catch(()=>{});return a}catch(e){}};
+['Windows_Start.mp3','Entrt_Click.mp3','Miss_click.mp3'].forEach(n=>{try{new Audio(n).preload='auto'}catch(e){}});
+function showWelcome(){
+ const w=document.createElement('div');w.id='welcome';
+ const ru=lang==='ru';
+ w.innerHTML='<div class="dlg"><div class="tb"><span>Stepan-PC</span><b>×</b></div><div class="bd"><div class="ico">i</div><div>'+(ru?'Портфолио загружено.<br>Добро пожаловать!':'Portfolio loaded.<br>Welcome!')+'</div></div><div class="bt"><button class="ok">OK</button></div></div>';
+ document.body.appendChild(w);
+ const dlg=w.firstChild,ok=w.querySelector('.ok');
+ ok.focus();
+ const close=()=>{if(!w.isConnected)return;welcomeOpen=false;snd('Entrt_Click.mp3');setTimeout(()=>snd('Windows_Start.mp3'),120);document.body.classList.remove('booting');w.remove()};
+ ok.onclick=close;
+ w.addEventListener('pointerdown',e=>{if(e.target===w){snd('Miss_click.mp3');dlg.classList.add('flash');setTimeout(()=>dlg.classList.remove('flash'),450)}});
+ addEventListener('keydown',e=>{if(welcomeOpen&&(e.key==='Enter'||e.key===' ')){e.preventDefault();close()}});
+ setTimeout(()=>welcomeOpen=true,350);
+}
+function end(){if(done)return;done=true;boot.classList.add('out');setTimeout(()=>boot.remove(),600);showWelcome()}
+document.addEventListener('click',e=>{const t=e.target;if(t.closest('#welcome,#boot'))return;if(t.closest('a,button,.btn,.lang'))snd('Entrt_Click.mp3');else snd('Miss_click.mp3')});const cls=[[/^Hit/,'cg'],[/^Get/,'cc'],[/^Fetched/,'cy'],[/^Reading/,'cd'],[/^Selecting/,'cm'],[/^Unpacking/,'cw'],[/^Setting up/,'co'],[/^Processing/,'cv']];
+async function go(){
+ for(const [t,d] of L){
+  if(done)return;
+  const r=document.createElement('div');bl.appendChild(r);
+  if(t==='PROGRESS'){
+   for(let i=0;i<=20&&!done;i++){
+    boot.scrollTop=boot.scrollHeight;
+    let h='[';for(let k=0;k<20;k++)h+=k<i?'<span style="color:hsl('+(k*6)+',90%,55%)">█</span>':'<span class="cd">░</span>';
+    r.innerHTML=h+'] <span class="cy">'+i*5+'%</span>';
+    await new Promise(x=>setTimeout(x,25));
+   }
+   continue}
+  r.innerHTML=t;
+  const m=cls.find(c=>c[0].test(r.textContent));if(m)r.classList.add(m[1]);
+  boot.scrollTop=boot.scrollHeight;
+  await new Promise(x=>setTimeout(x,d/2.5));
+ }
+ end();
+}
+boot.addEventListener('pointerdown',end);
+addEventListener('keydown',end);
+go();
+})();</script>
+</body>
+</html>
