@@ -296,6 +296,8 @@ body.booting{overflow:hidden}
 </div></footer>
 
 <script>
+try{history.scrollRestoration='manual'}catch(e){}
+if(!location.hash){window.scrollTo(0,0)}
 const T={
 ru:{
 nav_projects:"Проекты",nav_skills:"Навыки",nav_exp:"Опыт",nav_contact:"Контакты",
@@ -523,8 +525,8 @@ function showWelcome(){
  w.innerHTML='<div class="dlg"><div class="tb"><span>Stepan-PC</span><b>×</b></div><div class="bd"><div class="ico">i</div><div>'+(ru?'Портфолио загружено.<br>Добро пожаловать!':'Portfolio loaded.<br>Welcome!')+'</div></div><div class="bt"><button class="ok">OK</button></div></div>';
  document.body.appendChild(w);
  const dlg=w.firstChild,ok=w.querySelector('.ok');
- ok.focus();
- const close=()=>{if(!w.isConnected)return;welcomeOpen=false;snd('Entrt_Click.mp3');setTimeout(()=>snd('Windows_Start.mp3'),120);document.body.classList.remove('booting');w.remove()};
+ ok.focus({preventScroll:true});
+ const close=()=>{if(!w.isConnected)return;welcomeOpen=false;snd('Entrt_Click.mp3');setTimeout(()=>snd('Windows_Start.mp3'),120);document.body.classList.remove('booting');w.remove();if(!location.hash){window.scrollTo(0,0)}};
  ok.onclick=close;
  w.addEventListener('pointerdown',e=>{if(e.target===w){snd('Miss_click.mp3');dlg.classList.add('flash');setTimeout(()=>dlg.classList.remove('flash'),450)}});
  addEventListener('keydown',e=>{if(welcomeOpen&&(e.key==='Enter'||e.key===' ')){e.preventDefault();close()}});
